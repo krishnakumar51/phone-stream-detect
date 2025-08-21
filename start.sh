@@ -140,7 +140,7 @@ if [[ "$MODE" == "server" ]]; then
     fi
 fi
 
-if curl -f http://localhost:3000 > /dev/null 2>&1; then
+if curl -f http://localhost:3001 > /dev/null 2>&1; then
     echo "✅ Frontend service is healthy"
 else
     echo "❌ Frontend service health check failed"
@@ -152,7 +152,7 @@ fi
 NGROK_URL=""
 if [[ "$USE_NGROK" == true ]]; then
     echo "🌐 Setting up ngrok tunnel..."
-    ngrok http 3000 > /tmp/ngrok.log 2>&1 &
+    ngrok http 3001 > /tmp/ngrok.log 2>&1 &
     NGROK_PID=$!
     
     # Wait for ngrok to start
@@ -184,7 +184,7 @@ echo "🎉 WebRTC VLM Detection System is running!"
 echo ""
 echo "📱 Connection Information:"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🖥️  Local access:     http://localhost:3000"
+echo "🖥️  Local access:     http://localhost:3001"
 
 if [[ "$USE_NGROK" == true ]] && [[ ! -z "$NGROK_URL" ]]; then
     echo "📱 Phone access:     $NGROK_URL"
@@ -195,7 +195,7 @@ if [[ "$USE_NGROK" == true ]] && [[ ! -z "$NGROK_URL" ]]; then
     echo "   3. Or manually navigate to: $NGROK_URL"
     echo "   4. Allow camera permissions when prompted"
 else
-    echo "🏠 Network access:    http://[YOUR_IP]:3000"
+    echo "🏠 Network access:    http://[YOUR_IP]:3001"
     echo ""
     echo "📋 Phone Instructions:"
     echo "   1. Find your computer's IP address:"
@@ -206,7 +206,7 @@ else
     else
         echo "      Windows: ipconfig"
     fi
-    echo "   2. Replace [YOUR_IP] with actual IP (e.g., http://192.168.1.100:3000)"
+    echo "   2. Replace [YOUR_IP] with actual IP (e.g., http://192.168.1.100:3001)"
     echo "   3. Navigate to this URL on your phone"
     echo "   4. Allow camera permissions when prompted"
 fi
@@ -215,7 +215,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo ""
 echo "⚙️  Configuration:"
 echo "   • Detection mode: $MODE"
-echo "   • Frontend:       http://localhost:3000"
+echo "   • Frontend:       http://localhost:3001"
 if [[ "$MODE" == "server" ]]; then
     echo "   • Backend API:    http://localhost:8000"
     echo "   • API docs:       http://localhost:8000/docs"
