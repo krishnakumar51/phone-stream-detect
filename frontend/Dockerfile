@@ -21,9 +21,12 @@ COPY frontend/nginx.conf /etc/nginx/nginx.conf
 # Copy built app
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy models directory for WASM mode
+# Create models directory and download YOLOv8n model for WASM mode
 RUN mkdir -p /usr/share/nginx/html/models
-COPY frontend/public/models/ /usr/share/nginx/html/models/ 2>/dev/null || true
+RUN apk add --no-cache curl && \
+    curl -L -o /usr/share/nginx/html/models/yolov8n.onnx \
+    "https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.onnx" || \
+    echo "Model download failed, will use mock detection"
 
 EXPOSE 80
 
